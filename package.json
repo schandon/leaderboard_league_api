@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -35,8 +37,12 @@
     "@types/node": "^25.4.0",
     "@types/node-cron": "^3.0.11",
     "@types/pg": "^8.18.0",
+    "@types/supertest": "^7.2.0",
     "prisma": "^7.5.0",
+    "supertest": "^7.2.2",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0",
+    "vitest-mock-extended": "^3.1.0"
   }
 }
