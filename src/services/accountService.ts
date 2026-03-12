@@ -5,6 +5,8 @@ const accountSelect = {
   id: true,
   usernameRiot: true,
   tagRiot: true,
+  puuid: true,
+  gameName: true,
   type: true,
   status: true,
   fkUser: true,
@@ -25,6 +27,8 @@ export async function create(data: CreateAccountInput) {
     data: {
       usernameRiot: data.usernameRiot,
       tagRiot: data.tagRiot,
+      puuid: data.puuid,
+      gameName: data.gameName,
       type: data.type,
       status: data.status,
       fkUser: data.fkUser,

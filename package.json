@@ -1,5 +1,5 @@
 {
-  "name": "api_lol",
+  "name": "leaderboard_league_api",
   "version": "1.0.0",
   "description": "API REST com Express, Prisma, JWT e Zod",
   "main": "dist/server.js",

@@ -1,4 +1,4 @@
-# API LoL
+# Leaderboard League API
 
 API REST desenvolvida em **TypeScript** com **Express**, **Prisma ORM**, **PostgreSQL**, **Zod** e autenticação via **JWT**.
 
@@ -153,28 +153,6 @@ src/
 - O campo `fkUser` **nunca pode ser alterado** após a criação (bloqueado no schema Zod de atualização).
 - `onDelete: Cascade` em `UserRole` — ao excluir um `User` ou uma `Role`, os registros de ligação são removidos automaticamente.
 
-### Consultando um usuário com suas roles
-
-```typescript
-const userWithRoles = await prisma.user.findUnique({
-  where: { id: "user-uuid" },
-  include: {
-    roles: {
-      include: {
-        role: true,
-      },
-    },
-  },
-});
-
-// Resultado:
-// {
-//   id: "...", name: "...", email: "...",
-//   roles: [
-//     { userId: "...", roleId: "...", role: { id: "...", name: "ADMIN" } }
-//   ]
-// }
-```
 
 ## Endpoints
 

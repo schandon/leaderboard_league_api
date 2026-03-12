@@ -45,6 +45,8 @@ model Account {
   id           String        @id @default(uuid())
   usernameRiot String        @map("username_riot")
   tagRiot      String        @map("tag_riot")
+  puuid        String        @unique
+  gameName     String        @map("game_name")
   type         AccountType
   status       AccountStatus
   fkUser       String        @map("fk_user")
@@ -52,8 +54,25 @@ model Account {
   updatedAt    DateTime      @updatedAt @map("updated_at")
 
   user         User          @relation(fields: [fkUser], references: [id], onDelete: Restrict)
+  ranks        AccountRank[]
 
   @@map("accounts")
+}
+
+model AccountRank {
+  id           String   @id @default(uuid())
+  tier         String
+  rank         String
+  leaguePoints Int      @map("league_points")
+  wins         Int
+  losses       Int
+  fkAccount    String   @map("fk_account")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  account      Account  @relation(fields: [fkAccount], references: [id], onDelete: Cascade)
+
+  @@index([fkAccount, createdAt(sort: Desc)])
+  @@map("account_ranks")
 }
 
 enum RoleName {
