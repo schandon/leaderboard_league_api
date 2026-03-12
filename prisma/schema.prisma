@@ -16,8 +16,29 @@ model User {
   updatedAt DateTime  @updatedAt @map("updated_at")
 
   accounts  Account[]
+  roles     UserRole[]
 
   @@map("users")
+}
+
+model Role {
+  id    String   @id @default(uuid())
+  name  RoleName @unique
+
+  users UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  userId String @map("user_id")
+  roleId String @map("role_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
 }
 
 model Account {
@@ -33,6 +54,11 @@ model Account {
   user         User          @relation(fields: [fkUser], references: [id], onDelete: Restrict)
 
   @@map("accounts")
+}
+
+enum RoleName {
+  ADMIN
+  USER
 }
 
 enum AccountType {

@@ -81,13 +81,15 @@ export async function findById(id: string) {
 export async function update(id: string, data: UpdateUserInput) {
   await findById(id);
 
-  if (data.password) {
-    data.password = await hash(data.password, SALT_ROUNDS);
+  const updateData: UpdateUserInput = { ...data };
+
+  if (updateData.password) {
+    updateData.password = await hash(updateData.password, SALT_ROUNDS);
   }
 
   return prisma.user.update({
     where: { id },
-    data,
+    data: updateData,
     select: userSelect,
   });
 }
