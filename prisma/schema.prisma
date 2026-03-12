@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  accounts  Account[]
+
+  @@map("users")
+}
+
+model Account {
+  id           String        @id @default(uuid())
+  usernameRiot String        @map("username_riot")
+  tagRiot      String        @map("tag_riot")
+  type         AccountType
+  status       AccountStatus
+  fkUser       String        @map("fk_user")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  user         User          @relation(fields: [fkUser], references: [id], onDelete: Restrict)
+
+  @@map("accounts")
+}
+
+enum AccountType {
+  LOL
+  VALORANT
+  TFT
+  WILD_RIFT
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
